@@ -1,0 +1,24 @@
+
+# cat=Basic; type=boolean; label=Backend-Modul zeigen
+showMod = 1
+
+# cat=Basic; type=boolean; label=Filemounts automatisch erzeugen
+autoCreateFilemounts = 1
+
+# cat=Basic; type=string; label=Deep-L API Key
+deeplApiKey = 
+
+# cat=Basic; type=string; label=Deep-L API Endpoint
+deeplApiUrl = https://api-free.deepl.com/v2/translate
+
+# cat=Basic; type=string; label=Google Maps / Geocoding API Key
+googleGeoApiKey = 
+
+# cat=Basic; type=boolean; label=Cache-Blitz löscht ALLE Caches statt nur nnhelpers
+clearAllCaches = 0
+
+# cat=Basic; type=boolean; label=DEV-Mode aktivieren
+devModeEnabled = 0
+
+# cat=Basic; type=string; label=Encrypt salting key
+saltingKey = 

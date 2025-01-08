@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-06-02T11:48:33Z" product-name="nnhelpers">
+		<header/>
+		<body>
+			<trans-unit id="recipies" xml:space="preserve">
+				<target>Rezepte / Spickzettel</target>
+			</trans-unit>
+			<trans-unit id="global-methods" xml:space="preserve">
+				<target>Übergeordnete Methoden</target>
+			</trans-unit>
+			<trans-unit id="search" xml:space="preserve">
+				<target>Suchen</target>
+			</trans-unit>
+			<trans-unit id="search" xml:space="preserve">
+				<target>Suchen</target>
+			</trans-unit>
+			<trans-unit id="nnt3" xml:space="preserve">
+				<target>\nn\t3::Hilfe</target>
+			</trans-unit>
+			<trans-unit id="autofill-title" xml:space="preserve">
+				<target>Automatisch Namespaces im Spickzettel ersetzen:</target>
+			</trans-unit>
+			<trans-unit id="autofill-ext" xml:space="preserve">
+				<target>Extensions – Erweiterung fremder Extensions</target>
+			</trans-unit>
+			<trans-unit id="autofill-ext-input" xml:space="preserve">
+				<target>Fremde EXT, Vendor:</target>
+			</trans-unit>
+			<trans-unit id="ts-acc-01" xml:space="preserve">
+				<target>TypoScript Setup für das Seiten-Template</target>
+			</trans-unit>
+			<trans-unit id="sourcecode" xml:space="preserve">
+				<target>Quelltext</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,165 @@
+<f:form>
+
+	<!--
+		---------------------------------------------------------------------
+		Extrem primitive Test-Unit.
+
+		Um einen neuen Test einzurichten, einen Abschnitt unten einfügen.
+		data-id="Testname" wird in EXT:nnhelpers/Classes/Controller/ModuleController.php
+		ausgewertet. Der Test wird im Frontend und Backend-Kontext getestet.
+
+		ToDo: Scripten, CSS auslagern, Test-Ergebnisse besser ausgeben, mit "echten" Test-Units beschäftigen
+	-->
+
+	<style>
+		.btn-primary {
+			background-color: #7091af;
+			border: none;
+		}
+		.actions {
+			margin: 30px 0 30px 0;
+		}
+		.unit {
+			background-color: #eee;
+			border: 1px solid #ddd;
+			padding: 10px 10px 5px 20px;
+			color: #666;
+		}
+		.unit p {
+			margin: 0 0 5px 0; 
+			padding: 0;
+		}
+		.result-scope {
+			background-color: #555;
+		}
+		.result-scope.error {
+			background-color: #de2609;
+		}
+		.error {
+			background-color: #feb7b4;
+		}
+		.result-scope.success,
+		.success {
+			background-color: #98c47a;
+		}
+		.error-list {
+			color: #c42222;
+		}
+		.unit h4 {
+			color: #000;
+		}
+		.unit a {
+			color: #fff;
+		}
+		.unit ul {
+			padding: 0;
+			margin: 5px 0 5px 0;
+		}
+		.unit li {
+			margin: 0 0 0 15px;
+		}
+		.result-scope {
+			display: block;
+			width: 70px;
+			height: 30px;
+			float: right;
+			text-align: center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			font-size: 0.7rem;
+			margin: -5px 5px 0 0;
+		}
+
+	</style>
+	
+	<div class="actions mb-5 text-right">
+		<a href="#" class="run-test float-left btn btn-secondary">
+			<i class="fas fa-play"></i>
+			Test starten
+		</a>
+		<f:link.action action="index" class="btn btn-primary mr-3">Dokumentation</f:link.action>
+		<f:link.action action="test" class="btn btn-primary">Funktionen testen</f:link.action>
+	</div>
+		
+	<div class="test-units" data-backend-url="{f:uri.action(action:'test')}" data-frontend-url="{baseURL}?type=20190825">
+
+
+		<h2>Various methods</h2>
+		<div class="unit" data-id="Methods::basicTests">
+			<h4>Basic Tests</h4>
+		</div>
+
+		<h2>Environment</h2>
+		<div class="unit" data-id="Environment::getBaseURL">
+			<h4>\nn\t3::Environment()->getBaseURL()</h4>
+		</div>
+		<div class="unit" data-id="Environment::getPathSite">
+			<h4>\nn\t3::Environment()->getPathSite()</h4>
+		</div>
+		
+		<h2>DB</h2>
+		<div class="unit" data-id="Db::insert">
+			<h4>\nn\t3::DB() diverse Tests</h4>
+		</div>
+
+		<h2>File / FAL Basics</h2>
+		<div class="unit" data-id="File::paths">
+			<h4>\nn\t3::File() diverse Pfad-Tests</h4>
+		</div>
+		<div class="unit" data-id="File::getStorage">
+			<h4>\nn\t3::File()->getStorage()</h4>
+		</div>
+		<div class="unit" data-id="Fal::createFalFile">
+			<h4>\nn\t3::Fal()->createFalFile()</h4>
+		</div>
+
+		<div class="unit" data-id="File::getData">
+			<h4>\nn\t3::File()->getData()</h4>
+		</div>
+		<div class="unit" data-id="File::processImage">
+			<h4>\nn\t3::File()->processImage()</h4>
+		</div>
+		<div class="unit" data-id="Fal::fromFile">
+			<h4>\nn\t3::Fal()->fromFile()</h4>
+		</div>
+
+		<h2>FE-Kontext im BE erzeugen</h2>
+		<div class="unit" data-id="Tsfe::init">
+			<h4>\nn\t3::Tsfe()->init()</h4>
+		</div>
+
+		<h2>Page</h2>
+		<div class="unit" data-id="Page">
+			<h4>\nn\t3::Page()</h4>
+		</div>
+
+		<h2>SysCategory</h2>
+		<div class="unit" data-id="SysCategory">
+			<h4>\nn\t3::SysCategory()</h4>
+		</div>
+
+		<h2>Convert</h2>
+		<div class="unit" data-id="Convert">
+			<h4>\nn\t3::Convert()</h4>
+		</div>
+
+		<h2>Settings</h2>
+		<div class="unit" data-id="Settings">
+			<h4>\nn\t3::Settings()</h4>
+		</div>
+	
+		<h2>Content</h2>
+		<div class="unit" data-id="Content">
+			<h4>\nn\t3::Content()</h4>
+		</div>
+
+	</div>
+
+	<div class="actions">
+		<f:link.action action="index" class="btn btn-primary">Zurück</f:link.action>
+		<f:link.action action="test" class="btn btn-primary">Erneut testen</f:link.action>
+	</div>
+
+</f:form>

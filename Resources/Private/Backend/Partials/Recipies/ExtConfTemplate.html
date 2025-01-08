@@ -1,0 +1,40 @@
+
+<p class="d-flex">
+	<b>Verschiedene Typen</b>
+	<a href="https://bit.ly/3hSZfbh" class="ml-auto" target="_blank"><i class="fab fa-typo3 mr-2"></i> Zur Typo3 Dokumentation</a>
+</p>
+<nnt3:format.code lang="typoscript" download="ext_conf_template.txt">
+# cat=Basic; type=string; label=Ein einfache Input-Feld
+myString = Ein Text
+
+# cat=Basic; type=boolean; label=Eine Checkbox
+myCheckbox = 0
+		
+# cat=Basic; type=options[label1=value1,label2]; label=Meine Select-Box
+mySelectValue = 1
+
+# cat=Template; type=user[[vendor-ucc]\[ext-ucc]\Form\[model-ucc]Element->[field-lower]]; label=Ein eigenes Rendering
+myCustomThing = ...
+</nnt3:format.code>
+
+<br>
+<p>
+	Eigenes Rendering:
+</p>
+<nnt3:format.code lang="php" download="[model-ucc]Element.php">
+<?php
+
+namespace [vendor-ucc]\[ext-ucc]\Form;
+
+class [model-ucc]Element {
+
+	/**
+	 * @return string
+	 */
+	public function [field-lower]( $conf = [] ) {
+		return "<textarea style=\"min-height:100px\" name=\"{$conf['fieldName']}\" class=\"form-control\">{$conf['fieldValue']}</textarea>";
+	}
+
+}
+</nnt3:format.code>
+	

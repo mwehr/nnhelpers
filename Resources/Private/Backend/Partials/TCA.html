@@ -1,0 +1,99 @@
+<h5>
+    FAL-Image im TCA definieren
+</h5>
+<p>
+    Spart einige Zeilen Code im Configuration/TCA
+</p>
+<nnt3:format.code lang="php">
+// Beispiel in Configuration/TCA/tx_[ext-lower]_domain_model_[model-lower].php
+'falprofileimage' => [
+    'config' => \nn\t3::TCA()->getFileFieldTCAConfig('falprofileimage', ['maxitems'=>1]),
+],
+</nnt3:format.code>
+
+<br>
+
+<h5>
+    Color-Picker im TCA definieren
+</h5>
+<nnt3:format.code lang="php">
+// Beispiel in Configuration/TCA/tx_[ext-lower]_domain_model_[model-lower].php
+'bgcolor' => [
+    'config' => \nn\t3::TCA()->getColorPickerTCAConfig(),
+],
+</nnt3:format.code>
+
+<br>
+
+<h5>
+    RTE (ckeditor) im TCA definieren
+</h5>
+<nnt3:format.code lang="php">
+// Beispiel in Configuration/TCA/tx_[ext-lower]_domain_model_[model-lower].php
+'bodytext' => [
+    'config' => \nn\t3::TCA()->getRteTCAConfig(),
+],
+</nnt3:format.code>
+
+<br>
+
+<h5>
+    Optionen aus TypoScript im TCA nutzen
+</h5>
+<p>
+    Die Optionen in der select-Box können damit einfacher per TypoScript definiert werden.
+</p>
+<nnt3:format.code lang="php">
+// Beispiel in Configuration/TCA/tx_[ext-lower]_domain_model_[model-lower].php
+'config' => [
+    'type' => 'select',
+    'itemsProcFunc' => 'nn\t3\Flexform->insertOptions',
+    'pageconfigPath' => 'tx_nnsite.colors',
+    //'typoscriptPath' => 'plugin.tx_nnsite.settings.templates',
+]
+
+// In der pageTsConfig:
+tx_nnsite.colors {
+    10 = rot
+    20 = grün
+}
+</nnt3:format.code>
+
+<br>
+
+<h5>
+    Länder-Auswahl im TCA nutzen.
+</h5>
+<p>
+    Voraussetzung: static_info_tables muss installiert sein!
+</p>
+<nnt3:format.code lang="php">
+// Beispiel in Configuration/TCA/tx_[ext-lower]_domain_model_[model-lower].php
+'config' => [
+    'type' => 'select',
+    'itemsProcFunc' => 'nn\t3\Flexform->insertCountries',
+    'insertEmpty' => true,
+]
+</nnt3:format.code>
+
+<br>
+
+
+<h5>
+    Ein FlexForm in ein TCA importieren
+</h5>
+<p>
+    Ein FlexForm kann auch in die Konfiguration eines TCA-Feldes eingeschleust werden.<br>
+    <b>Wichtig:</b> Abhängigkeiten zu z.B. mask in ext_emconf.php definieren!
+</p>
+<nnt3:format.code lang="php">
+// Beispiel in Configuration/TCA/Overrides/tt_content.php
+// Wichtig: Abhängigkeiten zu z.B. mask in <code>ext_emconf.php</code> nicht vergessen
+if ($_GET['route'] != '/module/tools/MaskMask') {
+    if ($GLOBALS['TCA']['tt_content']['columns']['tx_mask_slideropt']) {
+        $GLOBALS['TCA']['tt_content']['columns']['tx_mask_slideropt']['config'] = \nn\t3::TCA()->insertFlexForm('FILE:EXT:nnsite/Configuration/FlexForm/slickslider_options.xml');
+    }
+}
+</nnt3:format.code>
+
+<br>

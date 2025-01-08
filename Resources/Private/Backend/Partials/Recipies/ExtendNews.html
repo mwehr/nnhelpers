@@ -1,0 +1,80 @@
+
+<p>
+	In <b>ext_localconf.php</b> den Proxy registrieren:
+</p>
+<nnt3:format.code lang="php">
+	$GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['classes']['Domain/Model/News'][] = '[ext-lower]';
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>ext_tables.sql</b> Feld in Datenbank registrieren:
+</p>
+<nnt3:format.code lang="sql">
+CREATE TABLE tx_news_domain_model_news (
+	[field-lower] varchar(255) DEFAULT '' NOT NULL
+);
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>Configuration/TCA/Overrides/tx_news_domain_model_news.php</b> Feld im TCA registrieren:
+</p>
+<nnt3:format.code lang="php" download="tx_news_domain_model_news.php">
+<?php
+defined('TYPO3') or die();
+
+$tmpColumns = [
+	'[field-lower]' => [
+		'exclude' => 1,
+		'label' => 'Titel',
+		'config' => [
+			'type' => 'input',
+			'size' => 15
+		],
+	]
+];
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+	'tx_news_domain_model_news', $tmpColumns
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+	'tx_news_domain_model_news', 
+	'--linebreak--,' . join(',', array_keys($tmpColumns)),
+	'',
+	'after:title'
+);
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>Classes/Domain/Model/News.php</b> Model mit Getter / Setter definieren
+</p>
+<nnt3:format.code lang="php" download="News.php">
+<?php
+
+namespace [vendor-ucc]\[ext-ucc]\Domain\Model;
+
+class News extends \GeorgRinger\News\Domain\Model\News {
+
+	/**
+	 * @var string
+	 */
+	protected $[field-lower-ucc];
+
+	/**
+	 * @return string
+	 */
+	public function get[field-ucc]() {
+		return $this->[field-lower-ucc];
+	}
+
+	/**
+	 * @param string $[field-lower-ucc]
+	 */
+	public function set[field-ucc]($[field-lower-ucc]) {
+		$this->[field-lower-ucc] = $[field-lower-ucc];
+	}
+}
+</nnt3:format.code>

@@ -1,0 +1,167 @@
+<h4>Standard RouteEnhancer</h4>
+<p>Konfiguration im Yaml</p>
+<nnt3:format.code lang="yaml" download="config.yaml">
+routeEnhancers:
+
+  # Mapping des page typeNum = 0 und = 9818 auf Suffix
+  PageTypeSuffix:
+    type: PageType
+    default: '/'
+    index: ''
+    map:
+      '/': 0
+      .html: 0
+      feed.rss: 9818
+  
+  # EXT:news RouteEnhancer 
+  NewsPlugin:
+    type: Extbase
+	# Alle Seiten mit einer News SingleView angeben
+    limitToPages:
+      - 192
+      - 241
+    extension: News
+    plugin: Pi1
+    routes:
+      -
+        routePath: '/{news_title}'
+        _controller: 'News::detail'
+        _arguments:
+          news_title: news
+    defaultController: 'News::detail'
+    aspects:
+      news_title:
+        type: PersistedAliasMapper
+        tableName: tx_news_domain_model_news
+        routeFieldName: path_segment
+  
+  # Beispiel: Simpler RouteEnhancer
+  NnfiletransferTransferUid:
+    type: Simple
+    routePath: '/f/{transfer_uid}'
+    requirements:
+      transfer_uid: '([0-9]*)(\.)([0-9a-zA-Z]*)'
+    _arguments:
+      f: transfer_uid
+
+  # Beispiel: Komplexerer RouteEnhancer
+  NnpeoplePlugin:
+	  type: Extbase
+	  limitToPages:
+		- 103
+	  extension: Nnpeople
+	  plugin: People
+	  routes:
+		-
+		  routePath: '/{uid}'
+		  _controller: 'People::show'
+		  _arguments:
+			uid: person
+	  defaultController: 'People::show'
+	  defaults:
+		uid: '0'
+	  aspects:
+		uid:
+		  type: PersistedPatternMapper
+		  tableName: tx_nnpeople_domain_model_people
+		  routeFieldPattern: '^(?P<lastname>.+);(?P<firstname>.+);(?P<uid>\d+)$'
+		  routeFieldResult: '{lastname};{firstname};{uid}'
+</nnt3:format.code>
+
+<h4 class="mt-4">Eigener RouteEnhancer</h4>
+<p>Konfiguration im Yaml</p>
+<nnt3:format.code lang="yaml" download="config.yaml">
+routeEnhancers:
+  [ext-ucc]Plugin:
+    limitToPages:
+      - 327
+    type: Extbase
+    extension: [ext-ucc]
+    plugin: [ext-ucc]
+    routes:
+      -
+        routePath: '/{identifier}'
+        _controller: 'Main::single'
+        _arguments:
+          identifier: identifier
+    defaultController: 'Main::list'
+    defaults:
+      identifier: '0'
+    aspects:
+      identifier:
+        type: [ext-ucc]Enhancer
+</nnt3:format.code>
+
+<p>Registrierung des RouteEnhancers in der <code>ext_localconf.php</code></p>
+<nnt3:format.code lang="php">
+
+if (class_exists(\TYPO3\CMS\Core\Routing\Aspect\PersistedPatternMapper::class)) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['[ext-ucc]Enhancer'] = \[vendor-ucc]\[ext-ucc]\Routing\Typo3RouteEnhancer::class;
+}
+</nnt3:format.code>
+
+<p>Der RouteEnhancers unter <code>Classes/Routing/Typo3RouteEnhancer.php</code></p>
+<nnt3:format.code lang="php" download="Typo3RouteEnhancer.php">
+<?php
+
+	namespace [vendor-ucc]\[ext-ucc]\Routing;
+	
+	use [vendor-ucc]\[ext-ucc]\Domain\Repository\[model-ucc]Repository;
+	
+	use TYPO3\CMS\Core\Routing\Aspect\PersistedMappableAspectInterface;
+	use TYPO3\CMS\Core\Routing\Aspect\StaticMappableAspectInterface;
+	use TYPO3\CMS\Core\Routing\RouteNotFoundException;
+	use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Core\DataHandling\SlugHelper;
+	
+	/**
+	 *  Infos:
+	 *  https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Routing/ExtendingRouting.html#writing-custom-enhancers
+	 */
+	class Typo3RouteEnhancer implements PersistedMappableAspectInterface, StaticMappableAspectInterface {
+	
+		use SiteLanguageAwareTrait;
+	
+		/**
+		 *  Wird vom Typo3 RouteEnhancer aufgerufen.
+		 *  Erlaubt das Generieren eines lesbaren Pfades über eine eigene Methode.
+		 * 
+		 *  @param string $value
+		 *
+		 *  @return string|null
+		 */
+		public function generate(string $value): ?string {
+	
+			// $value enthält die uid des Eintrages.
+			$[model-lower]Repository = \nn\t3::injectClass( [model-ucc]Repository::class );
+			$[model-lower] = $[model-lower]Repository->findByUid( $value );
+	
+			if (!$[model-lower]) return $value;
+	
+			// Titel des Entries holen und für URL-Pfad bereinigen
+			$slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_[ext-lower]_domain_model_[model-lower]', 'uid', []);
+			$title = $[model-lower]->getTitle();
+			$speaking = $slugHelper->sanitize($title) . '-' . $value;
+	
+			return $speaking;
+		}
+	
+	
+		/**
+		 * @param string $value
+		 *
+		 * @throws \Exception
+		 *
+		 * @return string|null
+		 */
+		public function resolve(string $value): ?string {
+	
+			// $value enthält den lesbaren Titel, z.B. 'herr-bascom-123'. Wir brauchen nur die Ziffern am Ende
+			$uid = preg_replace('/(.*)-([0-9\.]*)/i', '\2', $value);
+	
+			// Enthält nur noch die uid '2019091990'. Kann im [model-ucc]Repository in getUid() verwendet werden.
+			return $uid;
+		}
+	}
+</nnt3:format.code>

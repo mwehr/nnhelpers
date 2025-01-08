@@ -1,0 +1,17 @@
+{parsing off}
+public function myControllerAction () {
+
+	// Der Identifier kann ein beliebiges Array, eine ID (z.B. die pageUid) oder ein String sein
+	$cacheIdentfier = [__METHOD__=>$this->request->getArguments()];
+
+	// Wenn Cache bereits exisitert, direkt zurückgeben
+	if ($cache = \nn\t3::Cache()->get( $cacheIdentfier )) {
+		return $cache;
+	}
+
+	// ... Hier: Komplizierte Logik, Queries etc. ...
+
+	// Ergebnis Cachen und zurückgeben
+	$cache = $this->view->render();
+	return \nn\t3::Cache()->set($cacheIdentfier, $cache);
+}

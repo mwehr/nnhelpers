@@ -1,0 +1,110 @@
+
+<p>
+	In <b>ext_localconf.php</b> den Proxy registrieren:
+</p>
+<nnt3:format.code lang="php">
+\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
+	->registerImplementation(\[ext-vendor-ucc]\[ext-ext-ucc]\Domain\Model\[model-ucc]::class, \[vendor-ucc]\[ext-ucc]\Domain\Model\[model-ucc]::class);
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>Configuration/Extbase/Persistence/Classes.php</b> die Klassen mappen:
+</p>
+<nnt3:format.code lang="php" download="Classes.php">
+<?php
+
+return [
+	\[vendor-ucc]\[ext-ucc]\Domain\Model\[model-ucc]::class => [
+		'tableName' => 'tx_[ext-ext-lower]_domain_model_[model-lower]',
+		'recordType' => \[ext-vendor-ucc]\[ext-ext-ucc]\Domain\Model\[model-ucc]::class,
+	],
+];
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>ext_tables.sql</b> Feld in Datenbank registrieren:
+</p>
+<nnt3:format.code lang="sql">
+CREATE TABLE tx_[ext-ext-lower]_domain_model_[model-lower] (
+	[field-lower] varchar(255) DEFAULT '' NOT NULL
+);
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>Configuration/TCA/Overrides/tx_[ext-ext-lower]_domain_model_[model-lower].php</b> Feld im TCA registrieren:
+</p>
+<nnt3:format.code lang="php" download="tx_[ext-ext-lower]_domain_model_[model-lower].php">
+<?php
+defined('TYPO3') or die();
+
+$tmpColumns = [
+	'[field-lower]' => [
+		'exclude' => 1,
+		'label' => 'Titel',
+		'config' => [
+			'type' => 'input',
+			'size' => 15
+		],
+	]
+];
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+	'tx_[ext-ext-lower]_domain_model_[model-lower]', $tmpColumns
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+	'tx_[ext-ext-lower]_domain_model_[model-lower]', 
+	'--linebreak--,' . join(',', array_keys($tmpColumns)),
+	'',
+	'after:title'
+);
+</nnt3:format.code>
+
+<br>
+<p>
+	In <b>Classes/Domain/Model/[model-ucc].php</b> Model mit Getter / Setter definieren
+</p>
+<nnt3:format.code lang="php" download="[model-ucc].php">
+<?php
+
+namespace [vendor-ucc]\[ext-ucc]\Domain\Model;
+
+class [model-ucc] extends \[ext-vendor-ucc]\[ext-ext-ucc]\Domain\Model\[model-ucc] {
+
+	/**
+	 * @var string
+	 */
+	protected $[field-lower-ucc];
+
+	/**
+	 * @return string
+	 */
+	public function get[field-ucc]() {
+		return $this->[field-lower-ucc];
+	}
+
+	/**
+	 * @param string $[field-lower-ucc]
+	 */
+	public function set[field-ucc]($[field-lower-ucc]) {
+		$this->[field-lower-ucc] = $[field-lower-ucc];
+	}
+}
+</nnt3:format.code>
+
+
+<br>
+<p>
+	<b>Classes/Domain/Repository/[model-ucc]Repository.php</b> Repository definieren (optional)
+</p>
+<nnt3:format.code lang="php" download="[model-ucc]Repository.php">
+<?php
+namespace [vendor-ucc]\[ext-ucc]\Domain\Repository;
+
+class [model-ucc]Repository extends \[ext-vendor-ucc]\[ext-ext-ucc]\Domain\Repository\[model-ucc]Repository {
+
+}
+</nnt3:format.code>

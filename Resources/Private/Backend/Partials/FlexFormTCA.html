@@ -1,0 +1,41 @@
+<h5>
+    Ein FlexForm in ein anderes FlexForm importieren
+</h5>
+<p>
+    Der Form-Type <code>nnt3_flex</code> erlaubt den einfachen Import eines FlexForms in ein anderes FlexForm.
+    Der Core-Type <code>flex</code> wirft hier einen Fehler.
+</p>
+<nnt3:format.code lang="xml">
+<sliderOpt>
+    <TCEforms>
+        <label>Konfiguration</label>
+        <config>
+            <type>nnt3_flex</type>
+            <path>EXT:nnsite/Configuration/FlexForms/slickslider_options.xml</path>
+        </config>
+    </TCEforms>
+</sliderOpt>
+</nnt3:format.code>
+
+<br>
+
+<h5>
+    Optionen für eine Select-Box per TypoScript definieren und im FlexForm anzeigen
+</h5>
+<nnt3:format.code lang="xml">
+<preset>
+    <TCEforms>
+        <label>Voreinstellung</label>
+        <config>
+            <type>select</type>
+            <items type="array"></items>
+            <itemsProcFunc>nn\t3\Flexform->insertOptions</itemsProcFunc>
+            <typoscriptPath>plugin.tx_extname.settings.templates</typoscriptPath>
+            <!-- Alternativ: Settings aus PageTSConfig laden: -->
+            <pageconfigPath>tx_extname.colors</pageconfigPath>
+            <insertEmpty>1</insertEmpty>
+            <hideKey>1</hideKey>
+        </config>
+    </TCEforms>
+</preset>
+</nnt3:format.code>

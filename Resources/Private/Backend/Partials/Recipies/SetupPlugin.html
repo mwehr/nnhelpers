@@ -1,0 +1,36 @@
+<nnt3:format.code lang="typoscript" download="setup.txt">
+# Setup für ALLE Plugins dieser Extension
+plugin.tx_[ext-lower] {	
+	//...
+}
+
+# Setup speziell für das Plugin '[ext-lower]'
+plugin.tx_[ext-lower]_[ext-lower] {	
+	settings {
+	}
+	
+	persistence {
+		storagePid = 109
+	}
+	
+	mvc {
+		callDefaultActionIfActionCantBeResolved = 1
+	}
+	
+	features {
+		skipDefaultArguments = 1
+	}
+	
+	view {
+		templateRootPaths {
+			10 = EXT:[ext-lower]/Resources/Private/Templates/
+		}
+		partialRootPaths { 
+			10 = EXT:[ext-lower]/Resources/Private/Partials/
+		}
+		layoutRootPaths { 
+			10 = EXT:[ext-lower]/Resources/Private/Layouts/
+		}
+	}
+}
+</nnt3:format.code>

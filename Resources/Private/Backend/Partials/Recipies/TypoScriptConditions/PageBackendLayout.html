@@ -1,0 +1,20 @@
+<p>
+	<b>JS / CSS nur einbinden, wenn bestimmten Layout gewählt wurde</b>
+</p>
+<nnt3:format.code lang="typoscript">
+lib.isMyLayout {
+	value = pagets__nnfullscreen
+	equals.data = levelfield:-1, backend_layout_next_level, slide
+	equals.override.data = TSFE:page|backend_layout
+}
+
+page.includeJSFooterlibs {
+	jquery = EXT:[ext-lower]/Resources/Public/Js/jquery.min.js
+	jquery.if < lib.isMyLayout
+}
+
+page.includeCSS {
+	5000 = EXT:[ext-lower]/Resources/Public/Css/bootstrap.min.css
+	5000.if < lib.isFileTransferLayout
+}
+</nnt3:format.code>

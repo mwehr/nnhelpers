@@ -1,0 +1,36 @@
+
+<f:for each="{doc}" as="class" key="className" iteration="i">
+
+    <nnt3:widget.accordion title="{class.classNameShort}" class="class-card" icon="{icon}">
+        
+        <f:if condition="{class.comment}">
+            <div class="class-comment mb-4">
+                {class.comment->f:format.raw()->f:format.nl2br()}
+            </div>
+        </f:if>
+
+        <f:for each="{class.methods}" as="method" key="methodName" iteration="j">
+
+            <nnt3:widget.accordion title="<strong>{methodName}</strong>({method.paramString})" class="method">
+
+                {method.comment->f:format.raw()}
+                
+                <f:alias map="{btnid:'{nnt3:uniqid()}'}">
+                    <div class="src-code">
+                        <a href="#" class="btn btn-sm btn-default mt-3" data-toggle="collapse" data-target="#sc-{btnid}" data-bs-toggle="collapse" data-bs-target="#sc-{btnid}">
+                            <i class="fas fa-code"></i> {f:translate(key:'sourcecode')}
+                        </a>
+                        <div id="sc-{btnid}" class="collapse">
+                            <pre class="mt-4">{method.sourceCode}</pre>
+                        </div>    
+                    </div>
+                </f:alias>
+
+            </nnt3:widget.accordion>
+
+        </f:for>
+
+    </nnt3:widget.accordion>            
+
+
+</f:for>

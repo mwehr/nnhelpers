@@ -1,0 +1,148 @@
+<b>ext_localconf.php</b>
+<p>In der <code>ext_localconf.php</code> eine neue RTE-Konfiguration registrieren:</p>
+<nnt3:format.code lang="php">
+// Eigene RTE Konfiguration registrieren		
+$GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['rte_[ext-lower]'] = 'EXT:[ext-lower]/Configuration/RTE/rte.yaml';
+</nnt3:format.code>
+
+<br>
+<br>
+<b>pageTsConfig</b>
+<p>
+In der PageTsConfig <code>Configuration/TypoScript/extensions/rte.page</code> die neue Konfiguration für alle RTEs als default setzen.<br>
+Einbinden des TypoScript nicht vergessen!</p>
+<nnt3:format.code lang="tsconfig" download="rte.page">
+# Eigene Konfiguration als Default verwenden! 
+RTE.default {
+	preset = rte_[ext-lower]
+}
+
+# Feld für additionalParams in Linkwizard zeigen
+RTE.default.buttons.link.queryParametersSelector.enabled = 1
+
+# Statt ein default für alle: Speziell nur für bestimmte Tabelle / Felder
+RTE.config {
+    tx_[ext-lower]_domain_model_[model-lower].[field-lower].preset = rte_[ext-lower]
+}
+
+# Geht auf für jeden CType einzeln:
+RTE {
+	config.tt_content.bodytext.types {
+		text.preset = rte_[ext-lower]
+		textcolumn.preset = rte_[ext-lower]
+		texticon.preset = rte_[ext-lower]
+		textmedia.preset = rte_[ext-lower]
+		textpic.preset = rte_[ext-lower]
+		textteaser.preset = rte_[ext-lower]
+		panel.preset = rte_[ext-lower]
+	}
+}
+</nnt3:format.code>
+
+<br>
+<br>
+<b>TypoScript Setup</b>
+<p>
+Anpassungen am TypoScript Setup unter <code>Configuration/TypoScript/extensions/rte.setup</code>.<br>
+Einbinden des TypoScripts nicht vergessen!
+</p>
+<nnt3:format.code lang="typoscript" download="rte.setup">
+// Zusätzliche Tabellen-Klassen im RTE Tabellen-Editor erlauben / setzen
+lib.parseFunc_RTE.externalBlocks {
+    table.stdWrap.HTMLparser {
+        tags.table.fixAttrib.class {
+            default = ce-table
+            always = 1
+            list = ce-table,ce-table-0,ce-table-1,ce-table-2
+        }
+    }
+    table.stdWrap.wrap = <div class="table-responsive">|</div>
+}
+</nnt3:format.code>
+    
+<br>
+<br>
+<b>YAML</b>
+<p>Und die Yaml-Konfiguration unter <code>Configuration/RTE/rte.yaml</code>:</p>
+<nnt3:format.code lang="yaml" download="rte.yaml">
+# Load default processing options
+imports:
+  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Processing.yaml" }
+  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Base.yaml" }
+  - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
+      
+# Add configuration for the editor
+# For complete documentation see http://docs.ckeditor.com/#!/api/CKEDITOR.config
+editor:
+  externalPlugins:
+    #linebreak:
+    #  resource: "EXT:[ext-lower]/Resources/Vendor/ckeditor-linebreak/plugin.js"
+  config:
+    extraAllowedContent: "*(*)[data-*]; span(shy)"
+    language: 'de'
+    contentsCss:
+      - "EXT:rte_ckeditor/Resources/Public/Css/contents.css"
+      - "EXT:nnhelpers/Resources/Public/Vendor/fontawesome/css/all.min.css"
+      - "EXT:[ext-lower]/Resources/Public/Css/rte.css"
+
+    stylesSet: 
+      - { name: "Großer Button, gold", element: "a", attributes: { class: "cta-btn"} } 
+      - { name: "Icon: E-Mail", element: "a", attributes: { class: "ic ic-envelope"} } 
+
+    format_tags: "p;subhead;leadin;author"   
+    format_subhead: { name: "Zwischenüberschrift", element: "h3", attributes: { class: "subhead" } }
+    format_leadin: { name: "Lead-In", element: "h3", attributes: { class: "lead-in" } }
+    format_author: { name: "Autoren-Info", element: "h6", attributes: { class: "author-info" } }
+    
+    toolbarGroups:
+      - { name: styles, groups: [ styles, format ] }
+      - { name: basicstyles, groups: [ basicstyles ] }
+      - { name: paragraph, groups: [ list, indent, blocks, align ] }
+      - { name: links, groups: [ links ] }
+      - { name: clipboard, groups: [ clipboard, cleanup, undo ] }
+      - { name: editing, groups: [ spellchecker ] }
+      - { name: insert, groups: [ insert ] }
+      - { name: tools, groups: [ specialchar ] }
+      - { name: document, groups: [ mode ] }
+      - { name: linebreak }
+
+    justifyClasses:
+      - text-left
+      - text-center
+      - text-right
+      - text-justify
+
+    extraPlugins:
+      - justify
+      - linebreak
+
+    removePlugins:
+      - image
+      
+    removeButtons:
+      - Strike
+      - Anchor
+      - Outdent
+      - Indent
+      - JustifyBlock
+      
+processing:
+  allowTags:
+    - wbr    
+</nnt3:format.code>
+
+<br>
+<br>
+<b>CSS fürs Backend</b>
+<p>CSS einbinden <code>Resources/Public/Css/rte.css</code> (Pfad im Yaml definiert)</p>
+<nnt3:format.code lang="css" download="rte.css">
+a.cta-btn {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 3px;
+    background: #c29939;
+    color: #fff;
+}    
+</nnt3:format.code>
+
+

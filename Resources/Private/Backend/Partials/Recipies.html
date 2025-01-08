@@ -1,0 +1,234 @@
+<div class="mb-4 autofiller" data-pin-parent=".recipies-section">
+	<p><b>{f:translate(key:'autofill-title')}</b></p>
+	<div class="form-inline">
+		<div class="form-group mr-3 mb-3">
+			Vendor:
+			<input type="text" class="form-control mx-2" data-autofill-prefix="vendor" value="Nng" placeholder="Vendor" />
+		</div>    
+		<div class="form-group mr-3 mb-3">
+			Extension-Key:
+			<input type="text" class="form-control mx-2" data-autofill-prefix="ext" value="nnsite" placeholder="Extension-Key" />
+		</div>
+		<div class="form-group mr-3 mb-3">
+			DB-Field:
+			<input type="text" class="form-control mx-2" data-autofill-prefix="field" value="title" placeholder="Feldname" />
+		</div>    
+		<div class="form-group mr-3 mb-3">
+			Model/Class-Name:
+			<input type="text" class="form-control mx-2" data-autofill-prefix="model" value="Entry" placeholder="Model-Name" />
+		</div>
+	</div>
+</div>
+
+<article>
+	<h5 class="mb-4">TypoScript / Yaml Configuration</h5>
+
+		<nnt3:widget.accordion title="{f:translate(key:'ts-acc-01')}">
+			<nnt3:translate id="recipies-10" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in <code>Configuration/TypoScript/setup.txt</code></p>
+				{f:render(partial:'Recipies/Setup')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="PageConfigTS">
+			<nnt3:translate id="recipies-20" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in <code>Configuration/TypoScript/page.txt</code></p>
+				{f:render(partial:'Recipies/PageConfigTs')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="Site-Config YAML">
+			<nnt3:translate id="recipies-30" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in <code>typo3conf/sites/webseite.de/config.yaml</code></p>
+				{f:render(partial:'Recipies/SiteYaml')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="RouteEnhancers">
+			<nnt3:translate id="recipies-40" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in <code>typo3conf/sites/webseite.de/config.yaml</code></p>
+				{f:render(partial:'Recipies/RouteEnhancers')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+</article>
+
+<article>
+	<h5 class="my-4">Extensions – Basics</h5>
+
+		<nnt3:widget.accordion title="ext_localconf.php">
+			<nnt3:translate id="recipies-50" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in der <code>ext_localconf.php</code> einer Extension.</p>
+				<nnt3:format.code lang="php" download="ext_localconf.php">
+					{f:render(partial:'Recipies/ExtLocalconf')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="ext_tables.php">
+			<nnt3:translate id="recipies-60" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in der <code>ext_tables.php</code> einer Extension.</p>
+				<nnt3:format.code lang="php" download="ext_tables.php">
+					{f:render(partial:'Recipies/ExtTables')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="ext_conf_template.txt">
+			<nnt3:translate id="recipies-70" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für Extension Manager Konfiguratio unter <code>ext_conf_template.txt</code> einer Extension.</p>
+				{f:render(partial:'Recipies/ExtConfTemplate')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="ext_tables.sql">
+			<nnt3:translate id="recipies-80" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Datenbank-Konfiguration in der <code>ext_tables.sql</code> einer Extension.</p>
+				{f:render(partial:'Recipies/ExtTablesSql')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="sys_template.php">
+			<nnt3:translate id="recipies-90" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine TS-Template-Konfiguration in der <code>Configuration/TCA/Overrides/sys_template.php</code> einer Extension.</p>
+				{f:render(partial:'Recipies/SysTemplate')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="TypoScript Setup für PlugIn">
+			<nnt3:translate id="recipies-100" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in <code>Configuration/TypoScript/setup.txt</code></p>
+				{f:render(partial:'Recipies/SetupPlugin')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="TCA">
+			<nnt3:translate id="recipies-110" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>
+					Boilerplate für das TCA einer Datenbank-Tabelle.<br>
+					Liegt in <code>Configuration/TCA/tx_[ext-lower]_domain_model_[model-lower].php</code> einer Extension.
+				</p>
+				{f:render(partial:'Recipies/TCA')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="TCA/Overrides">
+			<nnt3:translate id="recipies-120" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in der <code>Configuration/TCA/Overrides/tt_content.php</code> einer Extension.</p>
+				<nnt3:format.code lang="php" download="tt_content.php">
+					{f:render(partial:'Recipies/TtContentOverride')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="FlexForm.xml">
+			<nnt3:translate id="recipies-130" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>
+					Beispiel für die Konfigurationen im FlexForm unter
+					<code>Configuration/FlexForm/flexform.xml</code>
+				</p>
+				{f:render(partial:'Recipies/FlexForm')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="Model">
+			<nnt3:translate id="recipies-140" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Boilerplate für ein Datenbank-Model.<br>
+				Liegt in <code>Classes/Domain/Model/[model-ucc].php</code> einer Extension.</p>
+				<nnt3:format.code lang="php" download="[model-ucc].php">
+					{f:render(partial:'Recipies/Model')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="Repository">
+			<nnt3:translate id="recipies-150" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Boilerplate für ein Repository-Model.<br>
+				Liegt in <code>Classes/Domain/Repository/[model-ucc]Repository.php</code> einer Extension.</p>
+				<nnt3:format.code lang="php" download="[model-ucc]Repository.php">
+					{f:render(partial:'Recipies/Repository')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="ViewHelper (static)">
+			<nnt3:translate id="recipies-160" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Boilerplate für einen ViewHelper unter <code>Classes/ViewHelpers/[model-ucc]ViewHelper.php</code></p>
+				<nnt3:format.code lang="php" download="[model-ucc]ViewHelper.php">
+					{f:render(partial:'Recipies/ViewHelper')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="ViewHelper (tag based)">
+			<nnt3:translate id="recipies-170" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Boilerplate für einen TagBasedViewHelper unter <code>Classes/ViewHelpers/[model-ucc]ViewHelper.php</code></p>
+				<nnt3:format.code lang="php" download="[model-ucc]ViewHelper.php">
+					{f:render(partial:'Recipies/TagBasedViewHelper')}
+				</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+</article>
+
+<article>
+	<div class="d-flex align-items-center">
+		<h5 class="my-4">{f:translate(key:'autofill-ext')}</h5>
+		<div class="ml-auto d-flex align-items-center text-nowrap">
+			{f:translate(key:'autofill-ext-input')}
+			<input type="text" class="form-control col-2 ml-2 mr-4" data-autofill-prefix="ext-vendor" value="Nng" placeholder="Vendor" />
+			EXT-Key:
+			<input type="text" class="form-control col-2 mx-2" data-autofill-prefix="ext-ext" value="nncalendar" placeholder="Extension-key" />
+		</div>
+	</div>
+
+		<nnt3:widget.accordion title="Extension erweitern (allgemein)">
+			<nnt3:translate id="recipies-180" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>
+					Allgemeine Methode, um das Model einer fremden Extension zu erweitern. 
+				</p>
+				{f:render(partial:'Recipies/ExtendExtensions')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="News (tx_news) erweitern">
+			<nnt3:translate id="recipies-190" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>
+					News verwendet einen eigenen Proxy, der elegant alle Erweiterungen am News-Model zu einem neuen Model merged.<br>
+					Siehe <a href="https://bit.ly/3xUGrOo">diesen Link</a> für eine ausführliche Beschreibung.
+				</p>
+				{f:render(partial:'Recipies/ExtendNews')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+</article>
+
+<article>
+	<h5 class="my-4">TypoScript Conditions</h5>
+
+		<nnt3:widget.accordion title="Seitenlayout Conditions (page.backend_layout)">
+			<nnt3:translate id="recipies-200" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Beispiel für eine Konfiguration in <code>Configuration/TypoScript/setup.txt</code></p>
+				{f:render(partial:'Recipies/TypoScriptConditions/PageBackendLayout')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+
+</article>
+
+<article>
+	<h5 class="my-4">Caching</h5>
+		<nnt3:widget.accordion title="Caching im Controller">
+			<nnt3:translate id="recipies-210" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<nnt3:format.code>{f:render(partial:'Recipies/CachingController')}</nnt3:format.code>
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+</article>
+
+<article>
+	<h5 class="my-4">RTE</h5>
+
+		<nnt3:widget.accordion title="RTE konfigurieren (ckeditor)">
+			<nnt3:translate id="recipies-220" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				<p>Eigene CSS-Klassen für Links, Tabellen etc. im Backend verfügbar machen.</p>
+				{f:render(partial:'Recipies/RTE')}
+			</nnt3:translate>
+		</nnt3:widget.accordion>
+</article>

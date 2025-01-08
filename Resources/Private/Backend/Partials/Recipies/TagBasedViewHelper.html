@@ -1,0 +1,38 @@
+<?php
+
+namespace [vendor-ucc]\[ext-ucc]\ViewHelpers;
+
+use \Nng\Nnhelpers\ViewHelpers\AbstractTagBasedViewHelper;
+
+/**
+ * [model-ucc]ViewHelper
+ * 
+ * {namespace vh=[vendor-ucc]\[ext-ucc]\ViewHelpers}
+ *
+ * <vh:[model-lower] [field-lower]="..." />
+ * {vh:[model-lower]([field-lower]:'...')}
+ *
+ */
+class [model-ucc]ViewHelper extends AbstractTagBasedViewHelper {
+
+	protected $tagName = 'a';
+
+	public function initializeArguments() {
+		parent::initializeArguments();
+		$this->registerArgument('[field-lower]', 'string', 'Infos', false);
+	}
+	
+	public function render() {
+
+		$args = ['item'];
+		foreach ($args as $arg) ${$arg} = $this->arguments[$arg] ?: '';
+
+		// Beispiel, um an alle aktuellen Variable im Fluid-Template zu kommen
+		// $templateVars = \nn\t3::Template()->getVariables( $this->renderingContext );
+
+		$content = $this->renderChildren();
+		$this->tag->setContent($content);
+
+		return $this->tag->render();
+	}
+}

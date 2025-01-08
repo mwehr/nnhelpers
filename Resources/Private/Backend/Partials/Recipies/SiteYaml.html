@@ -1,0 +1,22 @@
+<p>
+	<b>Base-URL und Varianten des Einstiegspunktes für Staging-Server</b>
+</p>
+<nnt3:format.code lang="yaml" download="config.yaml">
+base: 'https://www.webseite.de/'
+  # Varianten des Einstiegspunktes. Kann auch im Backend über UI geändert werden
+  baseVariants:
+    -
+    base: 'https://website.99grad.dev/'
+    condition: 'applicationContext == "Development"'	
+</nnt3:format.code>
+
+<p>
+	<b>Automatische Redirects bei Änderung des Slugs einer Seite</b><br>
+	Verhindert automatisches Anlegen von Redirects im Seitenmodul "Redirects"
+</p>
+<nnt3:format.code lang="yaml" download="config.yaml">
+settings:
+  redirects:
+    autoUpdateSlugs: false
+    autoCreateRedirects: false
+</nnt3:format.code>

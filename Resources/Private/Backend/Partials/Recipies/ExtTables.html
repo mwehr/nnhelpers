@@ -1,0 +1,36 @@
+{parsing off}<?php
+
+defined('TYPO3') or die();
+
+call_user_func(
+    function( $extKey )
+    {
+		
+		// (!!!) Wichtig: In der ext_emconf.php UND composer.json die Dependency zu nnhelpers angeben!
+		
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_[ext-lower]_domain_model_[model-lower]', 'EXT:[ext-lower]/Resources/Private/Language/locallang.xlf');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_[ext-lower]_domain_model_[model-lower]');
+
+		// Icon registrieren
+		\nn\t3::Registry()->icon('[ext-lower]-plugin', 'EXT:[ext-lower]/Resources/Public/Icons/wizicon.svg');
+
+		// Backend-Module registrieren
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+			\nn\t3::Registry()->getVendorExtensionName($extKey),
+			'web',
+			'mod1',
+			'',
+			\nn\t3::Registry()->parseControllerActions([
+				\[vendor-ucc]\[ext-ucc]\Controller\ModController::class => 'index,show',
+			]),
+			[
+				'access'	=> 'user,group',
+				'icon'	 	=> 'EXT:[ext-lower]/Resources/Public/Icons/wizicon.svg',
+				'labels'	=> 'LLL:EXT:[ext-lower]/Resources/Private/Language/locallang_mod1.xml',
+				'navigationComponentId' => '',
+				'inheritNavigationComponentFromMainModule' => false,
+			]
+		);
+
+	},
+'[ext-lower]');

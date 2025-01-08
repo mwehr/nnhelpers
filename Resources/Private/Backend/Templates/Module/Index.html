@@ -1,0 +1,91 @@
+<f:layout name="Module"/>
+
+<f:section name="Content">	
+
+	<f:be.pageRenderer
+		includeCssFiles="{
+			0: 'EXT:nnhelpers/Resources/Public/Vendor/fontawesome/css/all.css', 
+			2: 'EXT:nnhelpers/Resources/Public/Css/styles.css'
+		}"
+	/>
+
+	<f:if condition="{nnt3:ts.extConf(path:'nnhelpers.devModeEnabled')}">
+		<div class="actions mb-5 text-right">
+			<f:link.action action="exportDocumentation" class="btn btn-primary"><i class="fas fa-vial mr-2"></i> Export Doku für TER</f:link.action>
+			<f:link.action action="index" arguments="{updateTranslation:1}" class="btn btn-primary"><i class="fas fa-vial mr-2"></i> Übersetzen dieser Seite</f:link.action>
+
+			<!-- <f:link.action action="index" class="btn btn-primary ml-3"><i class="fas fa-book-medical mr-2"></i> Dokumentation</f:link.action> -->
+			<f:link.action controller="Test" action="test" class="btn btn-primary"><i class="fas fa-vial mr-2"></i> Funktionen testen</f:link.action>
+		</div>    
+	</f:if>
+
+	<div class="d-flex">
+		<h3 class="mb-4">{f:translate(key:'nnt3')} <sup>[{version}]</sup></h3>
+		<div class="search ml-auto">
+			<div class="input-group">
+				<input type="search" placeholder="{f:translate(key:'search')}..." class="form-control py-2 border-right-0 border finder" />
+				<span class="input-group-append">
+					<button class="btn btn-outline-secondary border-left-0 border" type="button">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+
+
+	<section class="recipies-section mb-4">
+
+		<nnt3:widget.accordion title="{f:translate(key:'recipies')}" icon="fas fa-utensil-spoon">
+		   {f:render(partial:'Recipies', arguments:_all)}
+		</nnt3:widget.accordion>
+	
+	</section>
+
+
+	<section class="viewhelpers-section mb-4">
+
+		<nnt3:widget.accordion title="{f:translate(key:'global-methods')}" icon="fas fa-rocket">
+			<nnt3:translate id="overalls-10" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				{f:render(partial:'Globals', arguments:_all)}
+			</nnt3:translate>
+		</nnt3:widget.accordion>            
+
+		<nnt3:widget.accordion title="ViewHelpers" icon="fas fa-eye">
+			{f:render(partial:'ViewHelpers', arguments:_all)}
+		</nnt3:widget.accordion>
+
+		<nnt3:widget.accordion title="FlexForm Helpers" icon="fas fa-code">
+			<nnt3:translate id="overalls-30" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				{f:render(partial:'FlexFormTCA', arguments:_all)}
+			</nnt3:translate>
+		</nnt3:widget.accordion>            
+
+		<nnt3:widget.accordion title="TCA Helpers" icon="fas fa-code">
+			<nnt3:translate id="overalls-40" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				{f:render(partial:'TCA', arguments:_all)}
+			</nnt3:translate>
+		</nnt3:widget.accordion>            
+
+		<nnt3:widget.accordion title="TypoScript Helpers" icon="fas fa-code">
+			<nnt3:translate id="overalls-50" extensionName="nnhelpers" enableApi="{updateTranslation}" translate="1" targetLang="{docLang}">
+				{f:render(partial:'Typoscript', arguments:_all)}
+			</nnt3:translate>
+		</nnt3:widget.accordion>            
+
+	</section>
+
+	<div class="classes-utilities mb-4">
+		<f:alias map="{doc:documentation, icon:'fas fa-cube'}">
+			{f:render(partial:'DocSection', arguments:_all)}
+		</f:alias>
+	</div>
+
+	<div class="classes-additional mb-4">
+		<f:alias map="{doc:additional, icon:'fas fa-life-ring'}">
+			{f:render(partial:'DocSection', arguments:_all)}
+		</f:alias>
+	</div>
+
+</f:section>
+

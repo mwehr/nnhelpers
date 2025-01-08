@@ -1,0 +1,161 @@
+<article>
+<p>
+    <b>FlexForm Boilerplate</b>
+</p>
+<nnt3:format.code lang="xml" download="flexform.xml">
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Einstellungen</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <switchableControllerActions> 
+                        <TCEforms>
+                            <label>Was soll dargestellt werden?</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">Listen-Ansicht (list)</numIndex>
+                                        <numIndex index="1">[model-ucc]->list</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">Einzel-Ansicht (show)</numIndex>
+                                        <numIndex index="1">[model-ucc]->show</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms> 
+                    </switchableControllerActions> 
+
+                    <!-- hier weitere Elemente des ersten Sheets -->
+
+                </el>
+            </ROOT>
+        </sDEF>
+
+        <sLIST>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Liste</sheetTitle>
+                    <displayCond>FIELD:sDEF.switchableControllerActions:=:Main->list</displayCond>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <!-- hier die Elemente des zweiten Sheets -->
+                </el>
+            </ROOT>
+        </sLIST>
+    
+    </sheets>
+</T3DataStructure>
+</nnt3:format.code>
+</article>
+
+<article>
+<p>
+    <b>Input</b>
+</p>
+<nnt3:format.code lang="xml">
+<[field-lower]>
+    <TCEforms>
+        <label>Beispiel Input</label>
+        <config>
+            <type>input</type>
+            <size>5</size>
+            <default>4000</default>
+        </config>
+    </TCEforms>
+</[field-lower]>
+</nnt3:format.code>
+</article>
+
+<article>
+<p>
+    <b>RTE (Rich Text Editor)</b>
+</p>
+<nnt3:format.code lang="xml">
+<[field-lower]>
+    <TCEforms>
+        <label>Infotext</label>
+        <config>
+            <type>text</type>
+            <enableRichtext>1</enableRichtext>
+        </config>
+    </TCEforms>
+</[field-lower]>
+</nnt3:format.code>
+</article>
+
+<article>
+<p>
+    <b>Checkbox</b>
+</p>
+<nnt3:format.code lang="xml">
+<[field-lower]>
+    <TCEforms>
+        <label>Beispiel Checkbox</label>
+        <config>
+            <type>check</type>
+            <default>0</default>
+        </config>
+    </TCEforms>
+</[field-lower]>
+</nnt3:format.code>
+</article>
+
+<article>
+<p>
+    <b>Select</b>
+</p>
+<nnt3:format.code lang="xml">
+<[field-lower]>
+    <TCEforms>
+        <label>Beispiel Select-Feld</label>
+        <config>
+            <type>select</type>
+            <renderType>selectSingle</renderType>
+        </config>
+    </TCEforms>
+</[field-lower]>
+</nnt3:format.code>
+</article>
+
+<article>
+<p>
+    <b>Select-Feld</b> mit Werten aus der pageTsConfig:
+</p>
+<nnt3:format.code lang="xml">
+<[field-lower]>
+    <TCEforms>
+        <label>Beispiel Select-Feld</label>
+        <config>
+            <type>select</type>
+            <renderType>selectSingle</renderType>
+            <itemsProcFunc>nn\t3\Flexform->insertOptions</itemsProcFunc>
+            <pageconfigPath>tx_[ext-lower].[field-lower]</pageconfigPath>
+            <!--typoscriptPath>tx_[ext-lower].[field-lower]</typoscriptPath-->
+            <insertEmpty>1</insertEmpty>
+        </config>
+    </TCEforms>
+</[field-lower]>
+</nnt3:format.code>
+
+<p>Das pageTsConfig dazu:</p>
+<nnt3:format.code lang="typoscript">
+tx_[ext-lower].[field-lower] {
+    10 = Beispiel-Label
+    20 = Zweites Beispiel
+    30 = Drittes Beispiel
+}
+</nnt3:format.code>
+</article>

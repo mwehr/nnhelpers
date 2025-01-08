@@ -1,0 +1,100 @@
+<p>
+	<b>Backend-Layout</b><br>
+	Wird in CASE von TS Setup als <code>page.10.file.stdWrap.cObject.pagets__home</code> verwendet.
+</p>
+<nnt3:format.code lang="tsconfig" download="page.txt">
+mod.web_layout.BackendLayouts {
+	home {
+		title = Home
+		config {
+			backend_layout {
+				colCount = 1
+				rowCount = 2
+				rows {
+					1 {
+						columns {
+							1 {
+								name = Banner-Bild
+								colPos = 10
+								maxitems = 1
+								allowed {
+									tx_gridelements_backend_layout = slickslider
+									CType = gridelements_pi1,mask_slicksliderone
+								}
+							}
+						}
+					}
+					2 {
+						columns {
+							1 {
+								name = Inhalte
+								colPos = 20
+							}
+						}
+					}
+				}
+			}
+		}
+		icon = EXT:[ext-lower]/Resources/Public/Icons/template-home.png
+	}
+}
+</nnt3:format.code>
+
+<p>
+	<b>Headline-Typen definieren</b>
+</p>
+<nnt3:format.code lang="tsconfig" download="page.txt">
+# Headline-Typen
+TCEFORM.tt_content.header_layout {
+	altLabels {
+		1 = Sehr groß (h1)
+		2 = Groß (h2)
+		3 = Mittel (h3)
+		4 = Klein (h4)
+		5 = Sehr klein (h5)
+	}
+	addItems {
+		11 = Gigantisch (h1)
+	}
+}
+</nnt3:format.code>
+
+<p>
+	<b>Keine (Kopie) Suffix an kopierte Elemente</b>
+</p>
+<nnt3:format.code lang="tsconfig" download="page.txt">
+# Kein (Kopie) als suffix an Klone
+TCEMAIN.table.pages {
+	disablePrependAtCopy = 1
+	disableHideAtCopy = 1
+}
+
+TCEMAIN.table.tt_content {
+	disablePrependAtCopy = 1
+	disableHideAtCopy = 1
+}
+</nnt3:format.code>
+
+<p>
+	<b>TCA Felder ausblenden</b>
+</p>
+<nnt3:format.code lang="tsconfig" download="page.txt">
+# TCA-Felder im Backend ausblenden
+TCEFORM.pages {
+	subtitle.disabled = 1
+	author.disabled = 1
+	author_email.disabled = 1
+	cache_tags.disabled = 1
+	media.disabled = 1
+	categories.disabled = 1
+}
+
+TCEFORM.tt_content {
+	date.disabled = 1
+	editlock.disabled = 1
+	categories.disabled = 1
+	rowDescription.disabled = 1
+	linkToTop.disabled = 1
+	sectionIndex.disabled = 1
+}
+</nnt3:format.code>

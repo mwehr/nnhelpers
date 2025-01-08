@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-02-14T10:11:40Z" product-name="nnhelpers">
+		<header/>
+		<body>
+			<trans-unit id="tx_nnhelpers_domain_model_entry">
+				<source>Test-Tabelle</source>
+			</trans-unit>
+			<trans-unit id="tx_nnhelpers_domain_model_entry.data">
+				<source>Data</source>
+			</trans-unit>
+			<trans-unit id="tx_nnhelpers_domain_model_entry.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_nnhelpers_domain_model_entry.categories">
+				<source>Categories</source>
+			</trans-unit>
+			<trans-unit id="recipies">
+				<source>Media</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

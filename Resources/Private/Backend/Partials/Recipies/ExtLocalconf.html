@@ -1,0 +1,35 @@
+{parsing off}<?php
+
+defined('TYPO3') or die();
+
+call_user_func(
+    function( $extKey )
+    {
+        // (!!!) Wichtig: In der ext_emconf.php UND composer.json die Dependency zu nnhelpers angeben!
+
+        // Ein Plugin registrieren.
+        \nn\t3::Registry()->configurePlugin( '[vendor-ucc]\[ext-ucc]', '[ext-lower]', 
+            [\[vendor-ucc]\[ext-ucc]\Controller\MainController::class => 'show'],
+            [\[vendor-ucc]\[ext-ucc]\Controller\MainController::class => '']
+        );
+        
+        // PageTsConfig registrieren
+		\nn\t3::Registry()->addPageConfig('@import "EXT:[ext-lower]/Configuration/TypoScript/page.ts"');
+
+        // Ein Feld der Tabelles "pages" für rootLine und slide-Functions verfügbar machen
+        \nn\t3::Registry()->rootLineFields(['nng_navroot']);
+
+        // Globalen Namespace für Fluid-Viewhelper definieren
+        \nn\t3::Registry()->fluidNamespace(['nng', 'nn'], '[vendor-ucc]\[ext-ucc]\ViewHelpers');
+
+        // Einen neuen renderType registrieren für FlexForm / TCA
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][[tstamp]] = [
+            'nodeName' => '[ext-lower]IconCollection',
+            'priority' => '80',
+            'class' => \[vendor-ucc]\[ext-ucc]\Form\IconCollectionElement::class,
+        ];
+
+        // Eigene RTE Konfiguration registrieren		
+        $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['rte_[ext-lower]'] = 'EXT:[ext-lower]/Configuration/RTE/rte.yaml';
+    },
+'[ext-lower]');

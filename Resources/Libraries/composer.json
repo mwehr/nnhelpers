@@ -1,0 +1,7 @@
+{
+    "require": {
+        "pelago/emogrifier": "^6",
+        "erusev/parsedown": "^1.7",
+        "barracudanetworks/archivestream-php": "^1.0.8"
+    }
+}

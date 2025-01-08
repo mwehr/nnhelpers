@@ -1,0 +1,71 @@
+{parsing off}<?php
+namespace [vendor-ucc]\[ext-ucc]\Domain\Model;
+
+use \TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use \TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+class [model-ucc] extends AbstractEntity {
+
+	/**
+	 * Ein einfaches Textfeld
+	 *
+	 * @var string
+	 */
+	protected $[field-lower-ucc] = '';
+
+	/**
+	 * Ein Feld mit Validator
+	 *
+	 * @var string
+	 * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+	 */
+	protected $[field-lower-ucc] = '';
+
+	/**
+	 * FAL media items
+	 *
+	 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 */
+	protected $[field-lower-ucc];
+
+	/**
+	 * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+	 * @return void
+	 */
+	protected function __construct() {
+		$this->[field-lower-ucc] = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * FAL getter
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+	 */
+	public function get[field-ucc]() {
+		return $this->[field-lower-ucc];
+	}
+
+	/**
+	 * FAL Setter
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $falMedia
+	 * @return void
+	 */
+	public function set[field-ucc](\TYPO3\CMS\Extbase\Persistence\ObjectStorage $[field-lower-ucc]) {
+		$this->falMedia = $[field-lower-ucc];
+	}
+
+	/**
+	 * FAL hinzufügen
+	 *
+	 * @param FileReference $[field-lower-ucc]
+	 */
+	public function add[field-ucc](FileReference $[field-lower-ucc]) {
+		if ($this->get[field-ucc]() === NULL) {
+			$this->falMedia = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		}
+		$this->falMedia->attach($[field-lower-ucc]);
+	}
+
+}

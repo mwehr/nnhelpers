@@ -1,0 +1,83 @@
+{parsing off}<?php
+
+// (!!!) Wichtig: In der ext_emconf.php UND composer.json die Dependency zu nnhelpers angeben!
+
+// ab TYPO3 v10: TCA-Gruppe inkl Plugins und Flexforms registrieren
+\nn\t3::Registry()->pluginGroup(
+    '[vendor-ucc]\[ext-ucc]',
+    'LLL:EXT:zvoove/Resources/Private/Language/locallang_db.xlf:pi_group_name',
+    [
+        'list' => [
+            'title'     => 'LLL:EXT:[ext-lower]/Resources/Private/Language/locallang_db.xlf:pi_list.name', 
+            'icon'      => 'EXT:[ext-lower]/Resources/Public/Icons/Extension.svg',
+            'flexform'  => 'FILE:EXT:[ext-lower]/Configuration/FlexForm/list.xml',
+        ],
+        'show' => [
+            'title'     => 'LLL:EXT:[ext-lower]/Resources/Private/Language/locallang_db.xlf:pi_show.name', 
+            'icon'      => 'EXT:[ext-lower]/Resources/Public/Icons/Extension.svg',
+            'flexform'  => 'FILE:EXT:[ext-lower]/Configuration/FlexForm/show.xml'
+        ],
+    ]
+);
+
+// Ein Plugin registrieren
+\nn\t3::Registry()->plugin( '[vendor-ucc]\[ext-ucc]', '[ext-lower]', '[ext-ucc] ([ext-lower])', 'EXT:[ext-lower]/Resources/Public/Icons/wizicon.svg' );
+
+// FlexForm für ein Plugin registrieren
+\nn\t3::Registry()->flexform( '[vendor-ucc]\[ext-ucc]', '[ext-lower]', 'FILE:EXT:[ext-lower]/Configuration/FlexForm/flexform.xml' );
+
+// Überschriften (`tt_content.header`) mehrzeilig machen - durch Änderung des `type` zu `text`
+\nn\t3::TCA()->setContentConfig('header', 'text');
+
+// Seitentitel (`pages.title`) mehrzeilig machen 
+\nn\t3::TCA()->setPagesConfig('title', 'text');
+
+// (!!) Wichtig: Abhängigkeiten zu z.B. mask in ext_emconf.php nicht vergessen
+if ($_GET['route'] != '/module/tools/MaskMask') {
+
+    // EXT:mask mit eigenen renderType überschreiben
+    \nn\t3::TCA()->setContentConfig('tx_mask_iconcollection', [
+        'renderType' => '[ext-lower]IconCollection',
+        'iconconfig' => 'tx_[ext-lower].iconcollection',
+    ]);
+
+    // FlexForm in Feld einschleusen
+    if ($GLOBALS['TCA']['tt_content']['columns']['tx_mask_slideropt']) {
+        $GLOBALS['TCA']['tt_content']['columns']['tx_mask_slideropt']['config'] = \nn\t3::TCA()->insertFlexForm('FILE:EXT:[ext-lower]/Configuration/FlexForm/slickslider_options.xml');
+    }
+    
+}
+
+// Neue Felder registrieren
+$temporaryColumn = [
+	'[ext-lower]_headercolor' => [		
+		'label' => 'Farbe',
+		'config' => [
+			'type' => 'select',
+			'renderType' => 'selectSingle',
+			'insertEmpty' => true,
+			'itemsProcFunc' => 'nn\t3\Flexform->insertOptions',
+			'pageconfigPath' => 'tx_[ext-lower].headercolors',
+            //'typoscriptPath' => 'plugin.tx_[ext-lower].settings.headercolors',
+			'default' => '0',
+		],
+	],
+];
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+        'tt_content',
+        $temporaryColumn
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+        'tt_content',
+        'header',
+        '[ext-lower]_headercolor',
+        'after:header_layout'
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+        'tt_content',
+        'headers',
+        '[ext-lower]_headercolor',
+        'after:header_layout'
+);
+

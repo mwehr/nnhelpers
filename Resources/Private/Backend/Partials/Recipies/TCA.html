@@ -1,0 +1,232 @@
+<article>
+	<nnt3:format.code lang="php" download="tx_[ext-lower]_domain_model_[model-lower].php">
+	<?php
+
+	defined('TYPO3') or die();
+
+	return [
+		'ctrl' => [
+			'title'	=> 'LLL:EXT:[ext-lower]/Resources/Private/Language/locallang_db.xlf:tx_[ext-lower]_domain_model_[model-lower]',
+			'label' => 'title',
+			'enablecolumns' => [],
+			//'hideTable' => true,
+			'searchFields' => '',
+			'tstamp' => 'tstamp',
+            'crdate' => 'crdate',
+            'dividers2tabs' => TRUE,
+            'languageField' => 'sys_language_uid',
+            'transOrigPointerField' => 'l18n_parent',
+            'transOrigDiffSourceField' => 'l18n_diffsource',
+            'delete' => 'deleted',
+            'iconfile' => 'EXT:[ext-lower]/Resources/Public/Icons/Extension.svg'
+		],
+
+		'interface' => [],
+		
+		'types' => [
+			'0' => ['showitem' => '
+				--div--;Allgemein,
+					--palette--;;1,
+					sys_language_uid,l10n_parent,l10n_diffsource,
+					title, 
+				--div--;Zugriff,
+					--palette--;;2
+			'],
+		],
+
+		'palettes' => [
+			'1' => ['showitem' => ''],
+			'2' => ['showitem' => 'hidden, starttime, endtime,--linebreak--, fe_group'],
+		],
+		
+		'columns' => \nn\t3::TCA()->createConfig(
+            'tx_[ext-lower]_domain_model_[model-lower]',
+			// true ergibt: ['sys_language_uid', 'l10n_parent', 'l10n_source', 'l10n_diffsource', 'hidden', 'cruser_id', 'pid', 'crdate', 'tstamp', 'sorting', 'starttime', 'endtime', 'fe_group'], 
+			true
+            [
+				// Hier TCA-Definitionen einfügen
+			]
+		),
+	];
+	</nnt3:format.code>
+</article>
+
+<article>
+<p>
+	<b>input</b> - Einfaches Eingabefeld
+</p>
+<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Eingabefeld',
+	'config'  => [
+		'type'	  => 'input',
+		'default'  => '0',
+	]
+],
+</nnt3:format.code>
+</article>
+
+
+<article>
+	<p>
+		<b>RTE</b> - Rich Text Editor (ckeditor)
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Text',
+	'config'  => \nn\t3::TCA()->getRteTCAConfig(),
+],
+</nnt3:format.code>
+</article>
+
+<article>
+	<p>
+		<b>FAL</b> - File Abstract Layer / Media-Element
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Bilder',
+	'config'  => \nn\t3::TCA()->getFileFieldTCAConfig('[field-lower]', ['maxitems'=>1]),
+],
+</nnt3:format.code>
+</article>
+
+
+<article>
+	<p>
+		<b>ColorPicker</b> - Farbfeld
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Farbe',
+	'config'  => \nn\t3::TCA()->getColorPickerTCAConfig(),
+],
+	</nnt3:format.code>
+</article>
+
+<article>
+	<p>
+		<b>Country</b> - Länder-Auswahl
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Land',
+	'config' => [
+		'type' => 'select',
+		'renderType' => 'selectSingle',
+		'itemsProcFunc' => 'nn\t3\Flexform->insertCountries',
+		'insertEmpty' => true,
+	],
+],
+	</nnt3:format.code>
+</article>
+
+<article>
+	<p>
+		<b>Checkbox</b> - mit EINER Option
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Ja oder Nein?',
+	'config'  => [
+		'type' => 'check',
+		'renderType' => 'checkboxToggle',
+		'default' => '0'
+	]
+],
+	</nnt3:format.code>
+</article>
+
+<article>
+	<p>
+		<b>Checkbox</b> - mit mehreren Optionen
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Ja oder Nein?',
+	'config'  => [
+		'type' => 'check',
+		// Schönere Checkbox, ab Typo3 9
+		// 'renderType' => 'checkboxToggle',
+		'default' => '0',
+		'items' => [
+			// label, value
+			['Label 1', '1'],
+			['Label 2', '2'],
+		]
+	]
+],
+	</nnt3:format.code>
+</article>
+
+
+<article>
+	<p>
+		<b>Select</b> - mit mehreren Optionen, die in der pageConfigTS oder TypoScript-Setup definiert werden können.
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'l10n_mode' => 'exclude',
+	'label' => 'Auswahl-Feld',
+	'config' => [
+		'type' => 'select',
+		'renderType' => 'selectSingle',
+		'itemsProcFunc' => 'nn\t3\Flexform->insertOptions',
+		'insertEmpty' => true,	// "Keine Auswahl" möglich?
+		'pageconfigPath' => 'tx_[ext-lower].naviclass',
+		// Alternativ:
+		//'typoscriptPath' => 'plugin.tx_[ext-lower].settings.templates',
+	]
+],
+	</nnt3:format.code>
+</article>
+
+
+<article>
+	<p>
+		<b>group</b> - Relationen zu fremder Tabelle
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label' => 'Ein externer Datensatz',
+	'config' => [
+		'type'		  => 'group',
+		'internal_type' => 'db',
+		'allowed'		 => 'tx_[ext-lower]_domain_model_entry',
+		'foreign_table' => 'tx_[ext-lower]_domain_model_entry',
+		'size' => 1,
+		'minitems' => 0,
+		'maxitems' => 1,
+	],
+],
+	</nnt3:format.code>
+</article>
+
+
+<article>
+	<p>
+		<b>date</b> - Datumsfeld
+	</p>
+	<nnt3:format.code lang="php">
+'[field-lower]' => [
+	'exclude' => 1,
+	'label'	=> 'Datum',
+	'config'  => [
+		'type'	  => 'input',
+		'renderType' => 'inputDateTime',
+		'size'	  => '8',
+		'eval'	  => 'date',
+		'default'  => '0',
+		'checkbox' => '0'
+	]
+],
+	</nnt3:format.code>
+</article>

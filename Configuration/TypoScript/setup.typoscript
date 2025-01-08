@@ -1,0 +1,53 @@
+
+# pageTitleProvider registrieren
+
+config.pageTitleProviders {
+    nnhelpers {
+        provider = Nng\Nnhelpers\Provider\PageTitleProvider
+        before = record
+        after = altPageTitle
+    }
+}
+
+# Backend Module
+
+module.tx_nnhelpers {
+    view {
+        templateRootPaths {
+            10 = EXT:nnhelpers/Resources/Private/Backend/Templates/
+        }
+        layoutRootPaths {
+			0 = EXT:backend/Resources/Private/Layouts/
+           //10 = EXT:nnhelpers/Resources/Private/Backend/Layouts/
+        }
+        partialRootPaths {
+           10 = EXT:nnhelpers/Resources/Private/Backend/Partials/
+        }
+		widget {
+			Nng\Nnhelpers\ViewHelpers\Widget\AccordionViewHelper.templateRootPath = EXT:nnhelpers/Resources/Private/Backend/
+		}
+    }
+}
+
+# Testing 
+
+nnhelpers_test = PAGE
+nnhelpers_test {
+	typeNum = 20190825
+	config {
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		additionalHeaders = Content-type: text/plain
+		no_cache = 1
+	}		 
+	10 = USER_INT
+	10.userFunc = Nng\Nnhelpers\Controller\TestController->testAction
+}
+
+plugin.tx_nnhelpers {
+	test = ok
+	settings {
+		test.deep = settings-ok
+	}
+}

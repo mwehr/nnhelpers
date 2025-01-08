@@ -1,0 +1,42 @@
+<?php
+
+namespace [vendor-ucc]\[ext-ucc]\ViewHelpers;
+
+use Nng\Nnhelpers\ViewHelpers\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+
+/**
+ * [model-ucc]ViewHelper
+ * 
+ * {namespace vh=[vendor-ucc]\[ext-ucc]\ViewHelpers}
+ *
+ * <vh:[model-lower] [field-lower]="..." />
+ * {vh:[model-lower]([field-lower]:'...')}
+ *
+ */
+class [model-ucc]ViewHelper extends AbstractViewHelper {
+
+    /**
+	 * @return void
+	 */
+	public function initializeArguments() {
+		parent::initializeArguments();
+    	$this->registerArgument('[field-lower]', 'string', 'Was zurückgeben?', false);
+	}
+	
+    /**
+     * @return string
+     */
+    public static function renderStatic( array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext ) {
+		foreach ($arguments as $k=>$v) {
+			${$k} = $v;
+		}
+
+		// Beispiel, um an alle aktuellen Variable im Fluid-Template zu kommen
+		// $templateVars = \nn\t3::Template()->getVariables( $renderingContext );
+
+		if (!$[field-lower]) $[field-lower] = $renderChildrenClosure();
+		return $[field-lower];
+    }
+    
+}

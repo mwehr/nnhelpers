@@ -1,0 +1,64 @@
+<p><b>Import / Include</b></p>
+<nnt3:format.code lang="typoscript" download="setup.txt">
+// Typo3 > 9
+@import 'EXT:[ext-lower]/Configuration/TypoScript/extensions/[field-lower].setup'
+@import 'EXT:[ext-lower]/Configuration/TypoScript/extensions/*.setup'
+@import 'EXT:[ext-lower]/Resources/Private/Templates/**/*.setup'
+</nnt3:format.code>
+
+<p><b>PAGE template</b></p>
+<nnt3:format.code lang="typoscript" download="setup.txt">
+page = PAGE
+page {
+	typeNum = 0
+
+	# Bitte keine Typo3-Kommentare im Quelltext!
+	config {
+		headerComment >
+		disablePrefixComment = 1
+	}
+
+	# favicon
+	shortcutIcon = EXT:[ext-lower]/Resources/Public/Images/favicon.ico
+}
+
+page.10 = FLUIDTEMPLATE
+page.10 {
+
+	partialRootPaths {
+		10 = EXT:[ext-lower]/Resources/Private/Partials/
+	}
+	layoutRootPaths {
+		10 = EXT:[ext-lower]/Resources/Private/Layouts/
+	}
+	templateRootPaths {
+		10 = EXT:[ext-lower]/Resources/Private/Templates/
+	}
+	
+	# Abhängig vom gewählten Template in den Seiteneigenschaften: Fluid-Template umschalten
+	file.stdWrap.cObject = CASE
+	file.stdWrap.cObject {
+		key.field = backend_layout   
+		key.ifEmpty.data = levelfield:-2, backend_layout_next_level, slide
+		
+		default = TEXT
+		default.value = EXT:[ext-lower]/Resources/Private/Templates/Default/Index.html	
+		
+		pagets__home = TEXT
+		pagets__home.value = EXT:[ext-lower]/Resources/Private/Templates/Home/Index.html	
+	}
+
+	variables {
+		[field-lower] = TEXT
+		[field-lower].value = Beispiel-Text
+
+		# Geht auch direkt per ViewHelper -- siehe "nnt3:content.column()"
+		content_10 < styles.content.get
+		content_10.select.where = colPos = 10
+
+		# Geht auch direkt per ViewHelper -- siehe "nnt3:content.column()"
+		content_20 < styles.content.get
+		content_20.select.where = colPos = 20
+	}
+}
+</nnt3:format.code>

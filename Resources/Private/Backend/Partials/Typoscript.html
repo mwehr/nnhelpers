@@ -1,0 +1,24 @@
+<h5>
+    PIDinRootline
+</h5>
+<p>
+    Prüft, ob angegebene Seite(n) innerhalb der Rootline sind.<br>
+    Seit Typo3 v10 funktioniert <code>[PIDinRootline = 34,36]</code> bzw. <code>[34 in tree.rootLineIds || 36 in tree.rootLineIds]</code> nicht mehr in der User TSconfig.
+</p>
+<nnt3:format.code lang="typoscript" download="user.txt">
+// Beispiel: Default Upload-Ordner abhängig von der Seite anpassen.
+// Kommt in die `User TSconfig`-Datei
+options {
+	defaultUploadFolder = 1:/bildarchiv/unsortiert/
+}
+
+// Wenn der User im Backend auf der Seite / SysFolder 364 ist, dann anderen Ordner nehmen:
+[nnt3_pidInRootline(364)]
+	options.defaultUploadFolder = 1:/uploads_kalender/
+[GLOBAL]
+
+// Array von pids kann auch angegeben werden
+[nnt3_pidInRootline([364, 365])]
+	options.defaultUploadFolder = 1:/uploads_kalender/
+[GLOBAL]
+</nnt3:format.code>

@@ -1,0 +1,6 @@
+
+<f:for each="{viewhelpers}" as="item" key="namespace" iteration="i">
+	<nnt3:widget.accordion title="<b>{item.vhName}()</b>" class="class-card" icon="{icon}">
+		{item.comment->f:format.raw()}				
+	</nnt3:widget.accordion>
+</f:for>
