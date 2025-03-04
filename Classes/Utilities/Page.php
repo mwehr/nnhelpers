@@ -240,7 +240,7 @@ class Page implements SingletonInterface
 		$uri = $cObj->typolink_URL([
 			'parameter' => $pid,
 			'forceAbsoluteUrl' => ($absolute == true),
-			'additionalParams' => GeneralUtility::implodeArrayForUrl(NULL, $params),
+			'additionalParams' => GeneralUtility::implodeArrayForUrl('', $params),
 		]);
 
 		return $uri;
